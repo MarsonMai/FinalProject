@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="401dfb14-2fa5-4b32-bfa8-7ee2ead703d7" name="Changes" comment="Start">
-      <change afterPath="$PROJECT_DIR$/src/Coin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GraphicsPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WelcomeFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WelcomePanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/coin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/goomba.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/marioleft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/marioright.png" afterDir="false" />
+    <list default="true" id="401dfb14-2fa5-4b32-bfa8-7ee2ead703d7" name="Changes" comment="Initalized most classes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,11 +53,20 @@
       <option name="project" value="LOCAL" />
       <updated>1716235427143</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initalized most classes">
+      <option name="closed" value="true" />
+      <created>1716236132362</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1716236132362</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start" />
+    <MESSAGE value="Initalized most classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initalized most classes" />
   </component>
 </project>

@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
-    private Player player;
+    private SpaceShip player;
     private boolean[] pressedKeys;
     private ArrayList<Coin> coins;
     private Timer timer;
     private int time;
+    private Laser laser;
 
     public GraphicsPanel(String name) {
         try {
@@ -21,7 +22,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        player = new Player("src/spaceship.png", "src/spaceship.png", name);
+        player = new SpaceShip("src/spaceship.png", "src/spaceship.png", name);
+        laser = new Laser(player.getxCoord(), player.getyCoord());
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
@@ -35,13 +37,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);  // just do this
-        g.drawImage(background, 0, 0, null);  // the order that things get "painted" matter; we put background down first
-        g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
+        super.paintComponent(g);
 
-        // this loop does two things:  it draws each Coin that gets placed with mouse clicks,
-        // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
-        // the score goes up and the Coin is removed from the arraylist
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
         for (int i = 0; i < coins.size(); i++) {
             Coin coin = coins.get(i);
             g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null); // draw Coin
@@ -53,30 +52,37 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
 
         // draw score
+        g.setColor(Color.WHITE);
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 70);
 
-        // player moves left (A)
-        if (pressedKeys[65]) {
+        // Handle player movement based on pressed keys
+        if (pressedKeys[KeyEvent.VK_A]) {
             player.faceLeft();
             player.moveLeft();
         }
 
-        // player moves right (D)
-        if (pressedKeys[68]) {
+        if (pressedKeys[KeyEvent.VK_D]) {
             player.faceRight();
             player.moveRight();
         }
 
-        // player moves up (W)
-        if (pressedKeys[87]) {
+        if (pressedKeys[KeyEvent.VK_W]) {
             player.moveUp();
         }
 
-        // player moves down (S)
-        if (pressedKeys[83]) {
+        if (pressedKeys[KeyEvent.VK_S]) {
             player.moveDown();
+        }
+
+        // Draw and move the laser if spacebar is pressed
+        if (pressedKeys[KeyEvent.VK_SPACE]) {
+            laser.startFiring();
+            laser.move();
+            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(),150,150, null);
+        } else {
+            laser.stopFiring();
         }
     }
 
@@ -84,8 +90,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void keyTyped(KeyEvent e) { } // unimplemented
 
     public void keyPressed(KeyEvent e) {
-        // see this for all keycodes: https://stackoverflow.com/questions/15313469/java-keyboard-keycodes-list
-        // A = 65, D = 68, S = 83, W = 87, left = 37, up = 38, right = 39, down = 40, space = 32, enter = 10
         int key = e.getKeyCode();
         pressedKeys[key] = true;
     }
@@ -96,8 +100,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     }
 
     // ----- MouseListener interface methods -----
-    public void mouseClicked(MouseEvent e) { }  // unimplemented; if you move your mouse while clicking,
-    // this method isn't called, so mouseReleased is best
+    public void mouseClicked(MouseEvent e) { }  // unimplemented
 
     public void mousePressed(MouseEvent e) { } // unimplemented
 

@@ -18,7 +18,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public WelcomePanel(JFrame frame) {
         enclosingFrame = frame;
         try {
-            goomba = ImageIO.read(new File("src/goomba.png"));
+            goomba = ImageIO.read(new File("src/Logo.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -38,7 +38,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.RED);
         g.drawString("Please enter your name:", 50, 30);
-        g.drawImage(goomba, 200, 50, null);
+        g.drawImage(goomba, 200, 50,10,10, null);
         textField.setLocation(50, 50);
         submitButton.setLocation(50, 100);
         clearButton.setLocation(150, 100);

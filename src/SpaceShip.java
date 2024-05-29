@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Player {
-    private final double MOVE_AMT = 1.2;
+public class SpaceShip {
+    private final double MOVE_AMT = 4.5;
     private BufferedImage right;
     private BufferedImage left;
     private boolean facingRight;
@@ -14,7 +14,7 @@ public class Player {
     private int score;
     private String name;
 
-    public Player(String leftImg, String rightImg, String name) {
+    public SpaceShip(String leftImg, String rightImg, String name) {
         this.name = name;
         facingRight = true;
         xCoord = 50; // starting position is (50, 435), right on top of ground
@@ -53,7 +53,7 @@ public class Player {
     }
 
     public void moveRight() {
-        if (xCoord + MOVE_AMT <= 920) {
+        if (xCoord + MOVE_AMT <= 1660) {
             xCoord += MOVE_AMT;
         }
     }
@@ -71,7 +71,7 @@ public class Player {
     }
 
     public void moveDown() {
-        if (yCoord + MOVE_AMT <= 435) {
+        if (yCoord + MOVE_AMT <= 900) {
             yCoord += MOVE_AMT;
         }
     }

@@ -8,7 +8,7 @@ public class
 Coin {
     private int xCoord;
     private int yCoord;
-    private BufferedImage image;
+        private BufferedImage image;
 
     public Coin(int x, int y) {
         xCoord = x;

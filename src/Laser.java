@@ -1,31 +1,47 @@
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class Laser {
-    private BufferedImage image;
     private int xCoord;
     private int yCoord;
-    private int velocity;
-    private boolean firing; // Indicates if the laser is currently firing
+    private int speed;
+    private BufferedImage image;
+    private boolean firing;
 
     public Laser(int x, int y) {
-        // Load laser image
-        try {
-            image = ImageIO.read(new File("src/laser.png")); // Assuming you have a laser image
-        } catch (IOException e) {
-            System.out.println("Error loading laser image: " + e.getMessage());
-        }
+        this.xCoord = x;
+        this.yCoord = y;
+        this.speed = 10;
+        this.firing = false;
 
-        xCoord = x;
-        yCoord = y;
-        velocity = 5; // Set the initial velocity of the laser
-        firing = false; // Laser starts not firing
+        try {
+            image = ImageIO.read(new File("src/laser.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public BufferedImage getImage() {
-        return image;
+    public void move() {
+        if (firing) {
+            xCoord += speed;
+        }
+    }
+
+    public void startFiring() {
+        firing = true;
+    }
+    public boolean isFiring() {
+        if (firing) {
+            return true;
+        }
+        return false;
+    }
+
+    public void stopFiring() {
+        firing = false;
     }
 
     public int getxCoord() {
@@ -36,22 +52,13 @@ public class Laser {
         return yCoord;
     }
 
-    public void startFiring() {
-        firing = true;
+    public BufferedImage getImage() {
+        return image;
     }
-
-    public void stopFiring() {
-        firing = false;
-    }
-
-    public boolean isFiring() {
-        return firing;
-    }
-
-    public void move() {
-        if (firing) {
-            // Update the laser's position
-            xCoord += velocity; // Move the laser upward (decrease y-coordinate)
-        }
+    public Rectangle laserRect() {
+        int imageHeight = getImage().getHeight();
+        int imageWidth = getImage().getWidth();
+        Rectangle rect = new Rectangle(xCoord, yCoord, imageWidth, imageHeight);
+        return rect;
     }
 }

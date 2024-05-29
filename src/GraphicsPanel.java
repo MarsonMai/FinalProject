@@ -34,7 +34,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         setFocusable(true); // this line of code + one below makes this panel active for keylistener events
         requestFocusInWindow(); // see comment above
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -75,16 +74,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (pressedKeys[KeyEvent.VK_S]) {
             player.moveDown();
         }
-
-        // Draw and move the laser if spacebar is pressed
         if (pressedKeys[KeyEvent.VK_SPACE]) {
             laser.startFiring();
+        }
+        if (laser.isFiring()) {
             laser.move();
-            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(),150,150, null);
-        } else {
-            laser.stopFiring();
+            g.setColor(Color.RED);
+            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(),150,150,null);
+
         }
     }
+
+
 
     // ----- KeyListener interface methods -----
     public void keyTyped(KeyEvent e) { } // unimplemented

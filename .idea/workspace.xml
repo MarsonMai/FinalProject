@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="401dfb14-2fa5-4b32-bfa8-7ee2ead703d7" name="Changes" comment="made a semi working laser">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="401dfb14-2fa5-4b32-bfa8-7ee2ead703d7" name="Changes" comment="working laser but only one fires">
       <change beforePath="$PROJECT_DIR$/src/GraphicsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GraphicsPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Laser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Laser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,13 +85,22 @@
       <option name="project" value="LOCAL" />
       <updated>1717016709489</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="working laser but only one fires">
+      <option name="closed" value="true" />
+      <created>1717018322550</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717018322550</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start" />
     <MESSAGE value="Initalized most classes" />
     <MESSAGE value="made a semi working laser" />
-    <option name="LAST_COMMIT_MESSAGE" value="made a semi working laser" />
+    <MESSAGE value="working laser but only one fires" />
+    <option name="LAST_COMMIT_MESSAGE" value="working laser but only one fires" />
   </component>
 </project>

@@ -81,7 +81,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             laser.move();
             g.setColor(Color.RED);
             g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(),150,150,null);
-
+            if(laser.getxCoord() >= 1900) {
+                laser.stopFiring();
+                laser =  new Laser(player.getxCoord(), player.getyCoord());
+            }
         }
     }
 

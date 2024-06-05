@@ -17,7 +17,7 @@ public class SpaceShip {
     public SpaceShip(String leftImg, String rightImg, String name) {
         this.name = name;
         facingRight = true;
-        xCoord = 50; // starting position is (50, 435), right on top of ground
+        xCoord = 50;
         yCoord = 435;
         score = 0;
         try {
@@ -95,12 +95,9 @@ public class SpaceShip {
             return left;
         }
     }
-
-    // we use a "bounding Rectangle" for detecting collision
     public Rectangle playerRect() {
         int imageHeight = getPlayerImage().getHeight();
         int imageWidth = getPlayerImage().getWidth();
-        Rectangle rect = new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
-        return rect;
+        return new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
     }
 }

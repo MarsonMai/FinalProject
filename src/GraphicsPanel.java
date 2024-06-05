@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private SpaceShip player;
+    private Enemy enemy;
     private boolean[] pressedKeys;
     private ArrayList<Coin> coins;
     private Timer timer;
@@ -23,6 +24,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             System.out.println(e.getMessage());
         }
         player = new SpaceShip("src/spaceship.png", name);
+        enemy = new Enemy("src/spaceship.png"); // filler image
         laser = new Laser(player.getxCoord(), player.getyCoord());
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
@@ -49,8 +51,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 i--;
             }
         }
-
-        // draw score
         g.setColor(Color.WHITE);
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);

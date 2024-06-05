@@ -22,17 +22,17 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        player = new SpaceShip("src/spaceship.png", "src/spaceship.png", name);
+        player = new SpaceShip("src/spaceship.png", name);
         laser = new Laser(player.getxCoord(), player.getyCoord());
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
-        timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
+        timer = new Timer(1000, this);
         timer.start();
         addKeyListener(this);
         addMouseListener(this);
-        setFocusable(true); // this line of code + one below makes this panel active for keylistener events
-        requestFocusInWindow(); // see comment above
+        setFocusable(true);
+        requestFocusInWindow();
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -42,8 +42,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
         for (int i = 0; i < coins.size(); i++) {
             Coin coin = coins.get(i);
-            g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null); // draw Coin
-            if (player.playerRect().intersects(coin.coinRect())) { // check for collision
+            g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null);
+            if (player.playerRect().intersects(coin.coinRect())) {
                 player.collectCoin();
                 coins.remove(i);
                 i--;
@@ -55,15 +55,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 70);
-
-        // Handle player movement based on pressed keys
         if (pressedKeys[KeyEvent.VK_A]) {
-            player.faceLeft();
             player.moveLeft();
         }
 
         if (pressedKeys[KeyEvent.VK_D]) {
-            player.faceRight();
             player.moveRight();
         }
 
@@ -91,7 +87,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
 
     // ----- KeyListener interface methods -----
-    public void keyTyped(KeyEvent e) { } // unimplemented
+    public void keyTyped(KeyEvent e) { }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -104,28 +100,22 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     }
 
     // ----- MouseListener interface methods -----
-    public void mouseClicked(MouseEvent e) { }  // unimplemented
+    public void mouseClicked(MouseEvent e) { }
 
-    public void mousePressed(MouseEvent e) { } // unimplemented
+    public void mousePressed(MouseEvent e) { }
 
     public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {  // left mouse click
+        if (e.getButton() == MouseEvent.BUTTON1) {
             Point mouseClickLocation = e.getPoint();
             Coin coin = new Coin(mouseClickLocation.x, mouseClickLocation.y);
             coins.add(coin);
-        } else {
-            Point mouseClickLocation = e.getPoint();
-            if (player.playerRect().contains(mouseClickLocation)) {
-                player.turn();
-            }
         }
     }
 
-    public void mouseEntered(MouseEvent e) { } // unimplemented
+    public void mouseEntered(MouseEvent e) { }
 
-    public void mouseExited(MouseEvent e) { } // unimplemented
+    public void mouseExited(MouseEvent e) { }
 
-    // ACTIONLISTENER INTERFACE METHODS: used for buttons AND timers!
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
             time++;

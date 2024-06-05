@@ -6,23 +6,19 @@ import java.io.IOException;
 
 public class SpaceShip {
     private final double MOVE_AMT = 4.5;
-    private BufferedImage right;
-    private BufferedImage left;
-    private boolean facingRight;
+    private BufferedImage img;
     private double xCoord;
     private double yCoord;
     private int score;
     private String name;
 
-    public SpaceShip(String leftImg, String rightImg, String name) {
+    public SpaceShip(String img, String name) {
         this.name = name;
-        facingRight = true;
         xCoord = 50;
         yCoord = 435;
         score = 0;
         try {
-            left = ImageIO.read(new File(leftImg));
-            right = ImageIO.read(new File(rightImg));
+            this.img = ImageIO.read(new File(img));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -43,15 +39,6 @@ public class SpaceShip {
     public String getName() {
         return name;
     }
-
-    public void faceRight() {
-        facingRight = true;
-    }
-
-    public void faceLeft() {
-        facingRight = false;
-    }
-
     public void moveRight() {
         if (xCoord + MOVE_AMT <= 1660) {
             xCoord += MOVE_AMT;
@@ -75,29 +62,17 @@ public class SpaceShip {
             yCoord += MOVE_AMT;
         }
     }
-
-    public void turn() {
-        if (facingRight) {
-            faceLeft();
-        } else {
-            faceRight();
-        }
-    }
-
     public void collectCoin() {
         score++;
     }
-
     public BufferedImage getPlayerImage() {
-        if (facingRight) {
-            return right;
-        } else {
-            return left;
-        }
+        return img;
     }
+
+
     public Rectangle playerRect() {
-        int imageHeight = getPlayerImage().getHeight();
-        int imageWidth = getPlayerImage().getWidth();
+        int imageHeight = img.getHeight();
+        int imageWidth = img.getWidth();
         return new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
     }
 }

@@ -9,12 +9,14 @@ public class Enemy {
     private BufferedImage img;
     private double xCoord;
     private double yCoord;
+    private final double finalYcord;
     private int difficulty;
 
     public Enemy(String img) {
         difficulty = 1;
-        xCoord = 0;
-        yCoord = 0;
+        xCoord = 1980;
+        yCoord = (int) (Math.random() * 1080);
+        finalYcord = yCoord;
         try {
             this.img = ImageIO.read(new File(img));
         } catch (IOException e) {
@@ -26,8 +28,7 @@ public class Enemy {
         return (int) xCoord;
     }
     public int getyCoord() {
-        yCoord = (int) (Math.random() * 1080);
-        return (int) yCoord;
+        return (int) finalYcord;
     }
     public void move() {
         if (difficulty == 1) {
@@ -39,9 +40,16 @@ public class Enemy {
         }
 
     }
-    public Rectangle EnemyRect() {
+    public BufferedImage getPlayerImage() {
+        return img;
+    }
+    public Rectangle enemyRect() {
         int imageHeight = img.getHeight();
         int imageWidth = img.getWidth();
-        return new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
+        return new Rectangle((int) xCoord, (int) finalYcord, imageWidth, imageHeight);
+    }
+    public void resetPosition() {
+        xCoord = 1980;
+        yCoord = (int) (Math.random() * 1080);
     }
 }

@@ -15,6 +15,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private JFrame enclosingFrame;
     private BufferedImage goomba;
 
+
     public WelcomePanel(JFrame frame) {
         enclosingFrame = frame;
         try {

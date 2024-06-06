@@ -16,7 +16,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private Timer timer;
     private int time;
     private Laser laser;
-
     public GraphicsPanel(String name) {
         try {
             background = ImageIO.read(new File("src/background.png"));
@@ -24,7 +23,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             System.out.println(e.getMessage());
         }
         player = new SpaceShip("src/spaceship.png", name);
-        enemy = new Enemy("src/spaceship.png"); // filler image
+        enemy = new Enemy("src/Enemy.png");
         laser = new Laser(player.getxCoord(), player.getyCoord());
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
@@ -42,13 +41,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
         g.drawImage(background, 0, 0, null);
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
+        g.drawImage(enemy.getPlayerImage(), enemy.getxCoord(), enemy.getyCoord(), 230, 230, null);
+        enemy.move();
         for (int i = 0; i < coins.size(); i++) {
             Coin coin = coins.get(i);
             g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null);
-            if (player.playerRect().intersects(coin.coinRect())) {
+            if (laser.laserRect().intersects(enemy.enemyRect())) {
+                enemy = new Enemy("src/Enemy.png");
                 player.collectCoin();
-                coins.remove(i);
-                i--;
             }
         }
         g.setColor(Color.WHITE);
@@ -57,21 +57,26 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawString("Time: " + time, 20, 70);
         if (pressedKeys[KeyEvent.VK_A]) {
             player.moveLeft();
+
         }
 
         if (pressedKeys[KeyEvent.VK_D]) {
             player.moveRight();
+
         }
 
         if (pressedKeys[KeyEvent.VK_W]) {
             player.moveUp();
+
         }
 
         if (pressedKeys[KeyEvent.VK_S]) {
             player.moveDown();
+
         }
         if (pressedKeys[KeyEvent.VK_SPACE]) {
             laser.startFiring();
+
         }
         if (laser.isFiring()) {
             laser.move();

@@ -12,7 +12,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private SpaceShip player;
     private Enemy enemy;
     private boolean[] pressedKeys;
-    private ArrayList<Coin> coins;
     private Timer timer;
     private int time;
     private Laser laser;
@@ -25,7 +24,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         player = new SpaceShip("src/spaceship.png", name);
         enemy = new Enemy("src/Enemy.png");
         laser = new Laser(player.getxCoord(), player.getyCoord());
-        coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this);
@@ -43,14 +41,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
         g.drawImage(enemy.getPlayerImage(), enemy.getxCoord(), enemy.getyCoord(), 230, 230, null);
         enemy.move();
-        for (int i = 0; i < coins.size(); i++) {
-            Coin coin = coins.get(i);
-            g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null);
-            if (laser.laserRect().intersects(enemy.enemyRect())) {
-                enemy = new Enemy("src/Enemy.png");
-                player.collectCoin();
-            }
-        }
         g.setColor(Color.WHITE);
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
@@ -112,8 +102,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             Point mouseClickLocation = e.getPoint();
-            Coin coin = new Coin(mouseClickLocation.x, mouseClickLocation.y);
-            coins.add(coin);
         }
     }
 

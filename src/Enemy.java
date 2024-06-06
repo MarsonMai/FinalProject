@@ -43,11 +43,6 @@ public class Enemy {
     public BufferedImage getPlayerImage() {
         return img;
     }
-    public Rectangle enemyRect() {
-        int imageHeight = img.getHeight();
-        int imageWidth = img.getWidth();
-        return new Rectangle((int) xCoord, (int) finalYcord, imageWidth, imageHeight);
-    }
     public void resetPosition() {
         xCoord = 1980;
         yCoord = (int) (Math.random() * 1080);

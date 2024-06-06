@@ -11,12 +11,14 @@ public class SpaceShip {
     private double yCoord;
     private int score;
     private String name;
+    private int health;
 
     public SpaceShip(String img, String name) {
         this.name = name;
         xCoord = 50;
         yCoord = 435;
         score = 0;
+        health = 3;
         try {
             this.img = ImageIO.read(new File(img));
         } catch (IOException e) {
@@ -34,6 +36,9 @@ public class SpaceShip {
 
     public int getScore() {
         return score;
+    }
+    public int getHP() {
+        return health;
     }
 
     public String getName() {
@@ -68,7 +73,9 @@ public class SpaceShip {
     public BufferedImage getPlayerImage() {
         return img;
     }
-
+    public void setHP() {
+        health--;
+    }
 
     public Rectangle playerRect() {
         int imageHeight = img.getHeight();

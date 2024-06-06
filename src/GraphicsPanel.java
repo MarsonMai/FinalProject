@@ -11,10 +11,12 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private BufferedImage background;
     private SpaceShip player;
     private Enemy enemy;
+    private ArrayList<Enemy> enemies;
     private boolean[] pressedKeys;
     private Timer timer;
     private int time;
     private Laser laser;
+    private int x;
     public GraphicsPanel(String name) {
         try {
             background = ImageIO.read(new File("src/background.png"));
@@ -25,7 +27,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         enemy = new Enemy("src/Enemy.png");
         laser = new Laser(player.getxCoord(), player.getyCoord());
         pressedKeys = new boolean[128];
+        enemies = new ArrayList<>();
         time = 0;
+        x = 1;
         timer = new Timer(1000, this);
         timer.start();
         addKeyListener(this);
@@ -33,51 +37,74 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         setFocusable(true);
         requestFocusInWindow();
     }
-    @Override
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy); // Add an enemy to the collection
+        repaint(); // Redraw the panel to display the new enemy
+    }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         g.drawImage(background, 0, 0, null);
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
-        g.drawImage(enemy.getPlayerImage(), enemy.getxCoord(), enemy.getyCoord(), 230, 230, null);
+        for (Enemy enemy : enemies) {
+            g.drawImage(enemy.getPlayerImage(), enemy.getxCoord(), enemy.getyCoord(), 230, 230, null);
+        }
         enemy.move();
         g.setColor(Color.WHITE);
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 70);
+        g.drawString("Health: " + player.getHP(),20,100);
+
         if (pressedKeys[KeyEvent.VK_A]) {
             player.moveLeft();
-
         }
 
         if (pressedKeys[KeyEvent.VK_D]) {
             player.moveRight();
-
         }
 
         if (pressedKeys[KeyEvent.VK_W]) {
             player.moveUp();
-
         }
 
         if (pressedKeys[KeyEvent.VK_S]) {
             player.moveDown();
-
         }
+
         if (pressedKeys[KeyEvent.VK_SPACE]) {
+            if (x == 1) {
+                laser = new Laser(player.getxCoord(), player.getyCoord());
+                x++;
+            }
             laser.startFiring();
-
         }
+
         if (laser.isFiring()) {
             laser.move();
             g.setColor(Color.RED);
-            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(),150,150,null);
-            if(laser.getxCoord() >= 1900 && pressedKeys[KeyEvent.VK_SPACE]) {
+            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(), 150, 150, null);
+            Rectangle laserRect = new Rectangle(laser.getxCoord(), laser.getyCoord(), 150, 150);
+            Rectangle enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
+            Rectangle playerRect = new Rectangle(player.getxCoord(),player.getyCoord());
+
+            if (laserRect.intersects(enemyRect)) {
+                player.collectCoin();
+                enemy.resetPosition();
                 laser.stopFiring();
-                laser =  new Laser(player.getxCoord(), player.getyCoord());
+                laser.setxCoord(player.getxCoord());
+                laser.setyCoord(player.getyCoord());
+
+            }
+            if (laser.getxCoord() >= 1900 && pressedKeys[KeyEvent.VK_SPACE]) {
+                laser.stopFiring();
+                laser = new Laser(player.getxCoord(), player.getyCoord());
+            }
+            if (playerRect.intersects(enemyRect) || enemy.getxCoord() == 0) {
+                player.setHP();
             }
         }
     }
+
 
 
 
@@ -112,6 +139,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
             time++;
+            if (time % 3 == 0) {
+                Enemy newEnemy = new Enemy("src/Enemy.png");
+                addEnemy(newEnemy);
+            }
+            repaint(); // Ensure the panel is repainted after each timer tick
         }
     }
 }

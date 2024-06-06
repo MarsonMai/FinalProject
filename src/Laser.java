@@ -23,7 +23,12 @@ public class Laser {
             e.printStackTrace();
         }
     }
-
+    public void setxCoord(int x) {
+        xCoord = x;
+    }
+    public void setyCoord(int y) {
+        yCoord = y;
+    }
     public void move() {
         if (firing) {
             xCoord += speed;

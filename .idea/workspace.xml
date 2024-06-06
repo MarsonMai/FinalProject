@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="401dfb14-2fa5-4b32-bfa8-7ee2ead703d7" name="Changes" comment="bug fix">
-      <change afterPath="$PROJECT_DIR$/src/Enemy.png" afterDir="false" />
+    <list default="true" id="401dfb14-2fa5-4b32-bfa8-7ee2ead703d7" name="Changes" comment="removedd coin class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GraphicsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GraphicsPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WelcomePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WelcomePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Laser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Laser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SpaceShip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SpaceShip.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,8 +105,35 @@
       <option name="project" value="LOCAL" />
       <updated>1717018585432</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="bug fix">
+      <option name="closed" value="true" />
+      <created>1717681894694</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717681894694</updated>
+    </task>
+    <task id="LOCAL-00008" summary="removedd coin class">
+      <option name="closed" value="true" />
+      <created>1717682031931</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717682031931</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start" />
@@ -114,6 +141,8 @@
     <MESSAGE value="made a semi working laser" />
     <MESSAGE value="working laser but only one fires" />
     <MESSAGE value="finished laser mainly" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished laser mainly" />
+    <MESSAGE value="bug fix" />
+    <MESSAGE value="removedd coin class" />
+    <option name="LAST_COMMIT_MESSAGE" value="removedd coin class" />
   </component>
 </project>

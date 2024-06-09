@@ -24,8 +24,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             System.out.println(e.getMessage());
         }
         player = new SpaceShip("src/spaceship.png", name);
-        enemy = new Enemy("src/Enemy.png");
-        laser = new Laser(player.getxCoord(), player.getyCoord());
+        enemy = new Enemy("src/Enemy.png",1);
+        laser = new Laser(player.getxCoord() + 150, player.getyCoord() + 78);
         pressedKeys = new boolean[128];
         enemies = new ArrayList<>();
         time = 0;
@@ -44,16 +44,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), null);
+        g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), 200, 200, null);
         for (Enemy enemy : enemies) {
+            enemy.move();
             g.drawImage(enemy.getPlayerImage(), enemy.getxCoord(), enemy.getyCoord(), 230, 230, null);
         }
-        enemy.move();
         g.setColor(Color.WHITE);
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 70);
-        g.drawString("Health: " + player.getHP(),20,100);
 
         if (pressedKeys[KeyEvent.VK_A]) {
             player.moveLeft();
@@ -73,7 +72,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
         if (pressedKeys[KeyEvent.VK_SPACE]) {
             if (x == 1) {
-                laser = new Laser(player.getxCoord(), player.getyCoord());
+                laser = new Laser(player.getxCoord() + 150, player.getyCoord() + 78);
                 x++;
             }
             laser.startFiring();
@@ -82,33 +81,28 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (laser.isFiring()) {
             laser.move();
             g.setColor(Color.RED);
-            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(), 150, 150, null);
-            Rectangle laserRect = new Rectangle(laser.getxCoord(), laser.getyCoord(), 150, 150);
-            Rectangle enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
-            Rectangle playerRect = new Rectangle(player.getxCoord(),player.getyCoord());
+            g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(), 50, 50, null);
+            Rectangle laserRect = new Rectangle(laser.getxCoord(), laser.getyCoord(), 50, 50);
 
-            if (laserRect.intersects(enemyRect)) {
-                player.collectCoin();
-                enemy.resetPosition();
-                laser.stopFiring();
-                laser.setxCoord(player.getxCoord());
-                laser.setyCoord(player.getyCoord());
+            for (Enemy enemy : enemies) {
+                Rectangle enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
 
+                if (laserRect.intersects(enemyRect)) {
+                    player.collectCoin();
+                    enemy.resetPosition();
+                    laser.stopFiring();
+                    laser.setxCoord(enemy.getxCoord());
+                    laser.setyCoord(enemy.getyCoord());
+                    break;
+                }
             }
+
             if (laser.getxCoord() >= 1900 && pressedKeys[KeyEvent.VK_SPACE]) {
                 laser.stopFiring();
-                laser = new Laser(player.getxCoord(), player.getyCoord());
-            }
-            if (playerRect.intersects(enemyRect) || enemy.getxCoord() == 0) {
-                player.setHP();
+                x = 1;
             }
         }
     }
-
-
-
-
-    // ----- KeyListener interface methods -----
     public void keyTyped(KeyEvent e) { }
 
     public void keyPressed(KeyEvent e) {
@@ -139,11 +133,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
             time++;
-            if (time % 3 == 0) {
-                Enemy newEnemy = new Enemy("src/Enemy.png");
+            if (time % 2 == 0) {
+                int randomY = (int) (Math.random() * (getHeight() - 230));
+                Enemy newEnemy = new Enemy("src/Enemy.png",1);
+                newEnemy.setyCoord(randomY);
                 addEnemy(newEnemy);
             }
-            repaint(); // Ensure the panel is repainted after each timer tick
+            repaint();
         }
     }
 }

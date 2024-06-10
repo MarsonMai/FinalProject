@@ -55,7 +55,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.setFont(new Font("Courier New", Font.BOLD, 24));
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 70);
-        if (player.getScore() >= 0){
+        if (player.getScore() >= 30){
             gameOver = true;
             g.setFont(new Font("Courier New",Font.ITALIC, 50));
             g.drawString("YOU WON IN " + time + "s!",1600 / 2,1080 / 2);
@@ -86,10 +86,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             if (laser.isFiring()) {
                 laser.move();
                 g.setColor(Color.RED);
-                g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(), 50, 50, null);
+                g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(), null);
                 Rectangle laserRect = new Rectangle(laser.getxCoord(), laser.getyCoord(), 50, 50);
                 for (Enemy enemy : enemies) {
-                    Rectangle enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
+                    Rectangle enemyRect;
+                    if (enemy.getEnemyType() == 1) {
+                        enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
+                    } else {
+                        enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(),enemy.getWidth(),enemy.getHeight());
+                    }
                     Rectangle playerRect = new Rectangle(player.getxCoord(), player.getyCoord(), 200, 200);
                     if (laserRect.intersects(enemyRect)) {
                         player.collectCoin();
@@ -109,7 +114,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 }
             }
             for (Enemy enemy : enemies) {
-                Rectangle enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
+                Rectangle enemyRect;
+                if (enemy.getEnemyType() == 1) {
+                    enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
+
+                } else {
+                    enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(),enemy.getWidth(),enemy.getHeight());
+                }
                 Rectangle playerRect = new Rectangle(player.getxCoord(), player.getyCoord(), 200, 200);
                 if (playerRect.intersects(enemyRect)) {
                     try {
@@ -183,10 +194,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             if (e.getSource() instanceof Timer) {
                 time++;
                 if (time % 2 == 0) {
+                    Enemy newEnemy;
+                    int rand = (int) (Math.random() * 2) + 1;
                     int randomY = (int) (Math.random() * (getHeight() - 230));
-                    Enemy newEnemy = new Enemy("src/Enemy.png");
-                    newEnemy.setyCoord(randomY);
-                    addEnemy(newEnemy);
+                    if (randomY > 100 && randomY < 1000) {
+                        if (rand == 1) {
+                            newEnemy = new Enemy("src/Enemy.png", 1, 180, 180);
+                        } else {
+                            newEnemy = new Enemy("src/enemy2.png", 2, 200, 200);
+                        }
+                        newEnemy.setyCoord(randomY);
+                        addEnemy(newEnemy);
+                    }
                 }
                 repaint();
             }

@@ -12,16 +12,10 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private JButton submitButton;
     private JButton clearButton;
     private JFrame enclosingFrame;
-    private BufferedImage logoImage;
     private Font titleFont;
     private Font ruleFont;
     public WelcomePanel(JFrame frame) {
         enclosingFrame = frame;
-        try {
-            logoImage = ImageIO.read(new File("src/Logo.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
         titleFont = new Font("Arial", Font.BOLD, 24);
         ruleFont = new Font("Arial", Font.PLAIN, 16);
         textField = new JTextField(15);

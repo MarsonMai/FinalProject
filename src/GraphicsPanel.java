@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private SpaceShip player;
@@ -42,8 +40,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         playMusic();
     }
     public void addEnemy(Enemy enemy) {
-        enemies.add(enemy); // Add an enemy to the collection
-        repaint(); // Redraw the panel to display the new enemy
+        enemies.add(enemy);
+        repaint();
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -66,20 +64,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             if (pressedKeys[KeyEvent.VK_A]) {
                 player.moveLeft();
             }
-
-
             if (pressedKeys[KeyEvent.VK_D]) {
                 player.moveRight();
             }
-
             if (pressedKeys[KeyEvent.VK_W]) {
                 player.moveUp();
             }
-
             if (pressedKeys[KeyEvent.VK_S]) {
                 player.moveDown();
             }
-
             if (pressedKeys[KeyEvent.VK_SPACE]) {
                 if (!laser.isFiring()) {
                     playCoinMusic();
@@ -90,13 +83,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 }
                 laser.startFiring();
             }
-
             if (laser.isFiring()) {
                 laser.move();
                 g.setColor(Color.RED);
                 g.drawImage(laser.getImage(), laser.getxCoord(), laser.getyCoord(), 50, 50, null);
                 Rectangle laserRect = new Rectangle(laser.getxCoord(), laser.getyCoord(), 50, 50);
-
                 for (Enemy enemy : enemies) {
                     Rectangle enemyRect = new Rectangle(enemy.getxCoord(), enemy.getyCoord(), 230, 230);
                     Rectangle playerRect = new Rectangle(player.getxCoord(), player.getyCoord(), 200, 200);
@@ -112,7 +103,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                         System.out.println("a");
                     }
                 }
-
                 if (laser.getxCoord() >= 1900 && pressedKeys[KeyEvent.VK_SPACE]) {
                     laser.stopFiring();
                     x = 1;
@@ -180,22 +170,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         int key = e.getKeyCode();
         pressedKeys[key] = false;
     }
-
-    // ----- MouseListener interface methods -----
     public void mouseClicked(MouseEvent e) { }
 
     public void mousePressed(MouseEvent e) { }
 
     public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            Point mouseClickLocation = e.getPoint();
-        }
     }
-
     public void mouseEntered(MouseEvent e) { }
-
     public void mouseExited(MouseEvent e) { }
-
     public void actionPerformed(ActionEvent e) {
         if (!gameOver) {
             if (e.getSource() instanceof Timer) {

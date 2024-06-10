@@ -11,7 +11,6 @@ public class SpaceShip {
     private double yCoord;
     private int score;
     private String name;
-
     public SpaceShip(String img, String name) {
         this.name = name;
         xCoord = 50;
@@ -23,19 +22,15 @@ public class SpaceShip {
             System.out.println(e.getMessage());
         }
     }
-
     public int getxCoord() {
         return (int) xCoord;
     }
-
     public int getyCoord() {
         return (int) yCoord;
     }
-
     public int getScore() {
         return score;
     }
-
     public String getName() {
         return name;
     }
@@ -44,19 +39,16 @@ public class SpaceShip {
             xCoord += MOVE_AMT;
         }
     }
-
     public void moveLeft() {
         if (xCoord - MOVE_AMT >= 0) {
             xCoord -= MOVE_AMT;
         }
     }
-
     public void moveUp() {
         if (yCoord - MOVE_AMT >= 0) {
             yCoord -= MOVE_AMT;
         }
     }
-
     public void moveDown() {
         if (yCoord + MOVE_AMT <= 900) {
             yCoord += MOVE_AMT;

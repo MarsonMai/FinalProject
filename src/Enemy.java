@@ -9,10 +9,8 @@ public class Enemy {
     private double xCoord;
     private double yCoord;
     private final double finalYcord;
-    private int difficulty;
 
-    public Enemy(String img,int difficulty) {
-        this.difficulty = difficulty;
+    public Enemy(String img) {
         xCoord = 1980;
         yCoord = (int) (Math.random() * 1080);
         finalYcord = yCoord;
@@ -40,13 +38,7 @@ public class Enemy {
     }
 
     public void move() {
-        if (difficulty == 1) {
-            xCoord -= 2; // Easy difficulty
-        } else if (difficulty == 2) {
-            xCoord -= 3; // Hard difficulty
-        } else {
-            xCoord -= 2; // Default to easy if invalid difficulty level
-        }
+         xCoord -= 2;
     }
 
     public BufferedImage getPlayerImage() {
@@ -57,4 +49,5 @@ public class Enemy {
         xCoord = 1980;
         yCoord = (int) (Math.random() * 1080);
     }
+
 }

@@ -13,36 +13,74 @@ public class WelcomePanel extends JPanel implements ActionListener {
     private JButton submitButton;
     private JButton clearButton;
     private JFrame enclosingFrame;
-    private BufferedImage goomba;
-
+    private BufferedImage logoImage;
+    private Font titleFont;
+    private Font ruleFont;
 
     public WelcomePanel(JFrame frame) {
         enclosingFrame = frame;
         try {
-            goomba = ImageIO.read(new File("src/Logo.png"));
+            logoImage = ImageIO.read(new File("src/Logo.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        textField = new JTextField(10);
+
+        // Set fonts
+        titleFont = new Font("Arial", Font.BOLD, 24);
+        ruleFont = new Font("Arial", Font.PLAIN, 16);
+
+        // Create text field and buttons
+        textField = new JTextField(15);
         submitButton = new JButton("Submit");
         clearButton = new JButton("Clear");
-        add(textField);  // textField doesn't need a listener since nothing needs to happen when we type in text
-        add(submitButton);
-        add(clearButton);
+
+        // Set button font
+        submitButton.setFont(ruleFont);
+        clearButton.setFont(ruleFont);
+
+        // Set layout
+        setLayout(new BorderLayout());
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20)); // Add spacing
+        topPanel.add(new JLabel("Enter your name:"));
+        topPanel.add(textField);
+        topPanel.add(submitButton);
+        topPanel.add(clearButton);
+
+        // Add components
+        add(topPanel, BorderLayout.NORTH);
+
+        // Add ActionListener
         submitButton.addActionListener(this);
         clearButton.addActionListener(this);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setFont(new Font("Arial", Font.BOLD, 16));
+
+        // Draw logo and title
+        int logoWidth = logoImage.getWidth();
+        g.setFont(titleFont);
         g.setColor(Color.RED);
-        g.drawString("Please enter your name:", 50, 30);
-        g.drawImage(goomba, 200, 50,50,50, null);
-        textField.setLocation(50, 50);
-        submitButton.setLocation(50, 100);
-        clearButton.setLocation(150, 100);
+        String title = "Welcome to the Game";
+        int titleWidth = g.getFontMetrics().stringWidth(title);
+        g.drawString(title, (getWidth() - titleWidth) / 2, 100);
+
+        // Display game rules
+        String[] rules = {
+                "- Kill 30 enemies as fast as possible",
+                "- Use WASD keys to move",
+                "- Press SPACE to shoot",
+                "- Avoid getting hit by enemies!"
+        };
+        int startY = 130;
+        g.setFont(ruleFont);
+        g.setColor(Color.BLACK);
+        for (String rule : rules) {
+            int ruleWidth = g.getFontMetrics().stringWidth(rule);
+            g.drawString(rule, (getWidth() - ruleWidth) / 2, startY);
+            startY += 30;
+        }
     }
 
     // ACTIONLISTENER INTERFACE METHODS

@@ -68,10 +68,4 @@ public class SpaceShip {
     public BufferedImage getPlayerImage() {
         return img;
     }
-
-    public Rectangle playerRect() {
-        int imageHeight = img.getHeight();
-        int imageWidth = img.getWidth();
-        return new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
-    }
 }
